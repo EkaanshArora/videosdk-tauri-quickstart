@@ -96,8 +96,12 @@ extern "C" int zoom_initialize(void* parent, ZoomEventCallback callback) {
 
   ZMVideoSDKInitParams* params = [ZMVideoSDKInitParams new];
   params.domain = @"https://zoom.us";
+  params.logFilePrefix = @"ZoomSDK";
   params.enableLog = YES;
+  params.videoRawDataMemoryMode = ZMVideoSDKRawDataMemoryMode_Heap;
+  params.shareRawDataMemoryMode = ZMVideoSDKRawDataMemoryMode_Heap;
   ZMVideoSDKErrors error = [sdk initialize:params];
+  NSLog(@"Zoom Video SDK initialize returned %ld", (long)error);
   if (error != ZMVideoSDKErrors_Success) {
     fail([NSString stringWithFormat:@"SDK initialization failed (%ld)", (long)error]);
     return 1;

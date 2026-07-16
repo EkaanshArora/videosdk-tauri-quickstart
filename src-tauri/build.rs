@@ -1,6 +1,7 @@
 use std::{
     env, fs,
     path::{Path, PathBuf},
+    process::Command,
 };
 
 fn main() {
@@ -16,6 +17,7 @@ fn main() {
 
 fn build_macos() {
     let sdk = Path::new("../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK");
+    copy_macos_modules(sdk);
     cc::Build::new()
         .cpp(true)
         .file("native/macos.mm")
@@ -31,6 +33,33 @@ fn build_macos() {
         "cargo:rustc-link-arg=-Wl,-rpath,{}",
         absolute(sdk).display()
     );
+}
+
+fn copy_macos_modules(sdk: &Path) {
+    // Tauri copies `bundle.macOS.frameworks` for `tauri dev`, but not the
+    // helper apps and bundles in `bundle.macOS.files`. Zoom needs both sets.
+    let mut target = PathBuf::from(env::var("OUT_DIR").unwrap());
+    for _ in 0..4 {
+        target.pop();
+    }
+    target.push("Frameworks");
+    fs::create_dir_all(&target).unwrap();
+
+    for entry in fs::read_dir(sdk).expect("read macOS SDK directory") {
+        let source = entry.unwrap().path();
+        let extension = source.extension().and_then(|value| value.to_str());
+        if !matches!(extension, Some("app" | "bundle")) {
+            continue;
+        }
+
+        let destination = target.join(source.file_name().unwrap());
+        let status = Command::new("ditto")
+            .arg(&source)
+            .arg(&destination)
+            .status()
+            .expect("run ditto");
+        assert!(status.success(), "copy {}", source.display());
+    }
 }
 
 fn build_windows() {

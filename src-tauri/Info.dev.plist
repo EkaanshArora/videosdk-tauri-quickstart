@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleExecutable</key>
+  <string>videosdk-tauri-quickstart</string>
+  <key>CFBundleIdentifier</key>
+  <string>com.ekaansh.videosdk-tauri-quickstart</string>
+  <key>CFBundleName</key>
+  <string>Zoom Video SDK Quickstart</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>LSMinimumSystemVersion</key>
+  <string>10.15</string>
+  <key>NSCameraUsageDescription</key>
+  <string>Camera access is used to send your video in a Zoom Video SDK session.</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Microphone access is used to send your audio in a Zoom Video SDK session.</string>
+</dict>
+</plist>

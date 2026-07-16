@@ -98,9 +98,19 @@ Start the app:
 bun tauri dev
 ```
 
+The Zoom macOS SDK must run from a real `.app` bundle. This project therefore
+uses a small Cargo runner that places the debug executable and Zoom frameworks
+in `src-tauri/target/debug/Zoom Video SDK Quickstart.app`, ad-hoc signs that
+development bundle, and launches it. Do not run the bare
+`src-tauri/target/debug/videosdk-tauri-quickstart` executable directly; Zoom
+will fail to find its internal modules and return initialization error 5.
+
 Allow camera and microphone access when macOS asks. If macOS blocks a Zoom
 framework or helper, open **System Settings → Privacy & Security**, approve the
 blocked item, and start the app again.
+
+The duplicate Objective-C class warnings printed by Zoom's frameworks also
+occur with Zoom's SDK layout and do not indicate an initialization failure.
 
 To build a macOS app bundle:
 
