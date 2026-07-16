@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
+import { getCurrentWindow } from "@tauri-apps/api/window";
 
 type Participant = {
   id: string;
@@ -192,6 +193,7 @@ window.addEventListener("resize", () => requestAnimationFrame(syncVideoViews));
 
 async function start() {
   await listen("zoom-state-changed", refreshState);
+  await getCurrentWindow().onMoved(() => requestAnimationFrame(syncVideoViews));
   try {
     await invoke("initialize_sdk");
     await refreshState();

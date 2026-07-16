@@ -1,3 +1,4 @@
+#define NOMINMAX
 #include <windows.h>
 
 #include <algorithm>
@@ -229,15 +230,33 @@ extern "C" int zoom_sync_views(const ZoomView* views, size_t count) {
 
     HWND window = video_windows[id];
     if (!window) {
-      window = CreateWindowExW(0, L"STATIC", nullptr,
-          WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS,
+      // WebView2 is composited above normal child HWNDs. An owned popup stays
+      // with the Tauri window while remaining visible above the webview.
+      window = CreateWindowExW(WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW,
+          L"STATIC", nullptr, WS_POPUP | WS_VISIBLE,
           0, 0, 1, 1, parent_window, nullptr, GetModuleHandle(nullptr), nullptr);
+      if (!window) {
+        remember_error("Could not create a native video window");
+        return 1;
+      }
       video_windows[id] = window;
-      user->GetVideoCanvas()->subscribeWithView(window, ZoomVideoSDKVideoAspect_LetterBox);
+      auto error = user->GetVideoCanvas()->subscribeWithView(
+          window, ZoomVideoSDKVideoAspect_LetterBox);
+      if (error != ZoomVideoSDKErrors_Success) {
+        remember_error("Could not subscribe the native video canvas (" +
+            std::to_string(error) + ")");
+        DestroyWindow(window);
+        video_windows.erase(id);
+        return 1;
+      }
     }
+
+    POINT origin{0, 0};
+    ClientToScreen(parent_window, &origin);
     double scale = views[i].scale;
     SetWindowPos(window, HWND_TOP,
-        static_cast<int>(views[i].x * scale), static_cast<int>(views[i].y * scale),
+        origin.x + static_cast<int>(views[i].x * scale),
+        origin.y + static_cast<int>(views[i].y * scale),
         static_cast<int>(views[i].width * scale), static_cast<int>(views[i].height * scale),
         SWP_SHOWWINDOW | SWP_NOACTIVATE);
   }
