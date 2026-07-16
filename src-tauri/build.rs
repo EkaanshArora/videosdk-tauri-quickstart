@@ -16,7 +16,7 @@ fn main() {
 }
 
 fn build_macos() {
-    let sdk = Path::new("../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK");
+    let sdk = Path::new("../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK");
     copy_macos_modules(sdk);
     cc::Build::new()
         .cpp(true)
@@ -63,7 +63,7 @@ fn copy_macos_modules(sdk: &Path) {
 }
 
 fn build_windows() {
-    let sdk = Path::new("../../zoom-video-sdk-windows-2.6.0/Sample-Libs/x64");
+    let sdk = Path::new("../zoom-video-sdk-windows-2.6.0/Sample-Libs/x64");
     cc::Build::new()
         .cpp(true)
         .file("native/windows.cpp")

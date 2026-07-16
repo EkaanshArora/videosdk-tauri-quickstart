@@ -21,15 +21,14 @@ Zoom callbacks drive all session updates. The app does not poll the SDK.
 
 ## Put the SDKs in place
 
-The Zoom SDK binaries are not included in this source project. Keep the two
-2.6.0 SDK folders beside the outer project folder:
+The Zoom SDK binaries are not included in Git. Unzip both 2.6.0 SDK folders
+directly into this repository, beside `package.json`:
 
 ```text
-workspace/
+videosdk-tauri-quickstart/
+├── package.json
 ├── zoom-video-sdk-macos-2.6.0/
-├── zoom-video-sdk-windows-2.6.0/
-└── videosdk-tauri-quickstart/
-    └── videosdk-tauri-quickstart/    # this folder; contains package.json
+└── zoom-video-sdk-windows-2.6.0/
 ```
 
 The build expects these exact paths:
@@ -39,8 +38,7 @@ zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/
 zoom-video-sdk-windows-2.6.0/Sample-Libs/x64/
 ```
 
-Run all commands below from the inner `videosdk-tauri-quickstart` folder that
-contains `package.json`.
+Run all commands below from this repository root.
 
 ## Configure credentials and generate a JWT
 
@@ -150,7 +148,7 @@ If the Windows SDK was downloaded as a ZIP, unblock the ZIP before extracting
 it. If it has already been extracted, you can unblock only that SDK folder:
 
 ```powershell
-Get-ChildItem ..\..\zoom-video-sdk-windows-2.6.0 -Recurse | Unblock-File
+Get-ChildItem .\zoom-video-sdk-windows-2.6.0 -Recurse | Unblock-File
 ```
 
 Start the app:

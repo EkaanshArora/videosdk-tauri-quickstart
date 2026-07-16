@@ -10,6 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+zoom-video-sdk-macos-2.6.0/
+zoom-video-sdk-windows-2.6.0/
 *.local
 .env
 
