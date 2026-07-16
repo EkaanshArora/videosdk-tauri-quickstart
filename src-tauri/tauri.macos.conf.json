@@ -1,0 +1,58 @@
+{
+  "bundle": {
+    "macOS": {
+      "minimumSystemVersion": "10.15",
+      "infoPlist": "Info.plist",
+      "frameworks": [
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/ZMVideoSDK.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/Prism.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/ZoomKit.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/ZoomTask.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/ZoomUnit.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/ZoomVideoSDKMeetingBridge.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/cmmbiz.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/cmmlib.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/curl64.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/live_sdk.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/nydus.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/protobuf.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/tp.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/util.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/viper.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zBusinessUIComponent.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zEventTracker.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zNetUtils.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zUnifyWebViewApp.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zVideoUIBridge.framework",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/VideoSDK.dylib",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/libcares.dylib",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/libcrypto.dylib",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/libjson.dylib",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/liblooper.dylib",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/libminizip.dylib",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/libssl.dylib",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/libzContext.dylib",
+        "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/libzoombase_crypto_shared.dylib"
+      ],
+      "files": {
+        "Frameworks/CptHost.app": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/CptHost.app",
+        "Frameworks/ZoomTelemetry.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/ZoomTelemetry.bundle",
+        "Frameworks/annoter.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/annoter.bundle",
+        "Frameworks/aomagent.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/aomagent.bundle",
+        "Frameworks/aomhost.app": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/aomhost.app",
+        "Frameworks/capHost.app": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/capHost.app",
+        "Frameworks/libmpg123_mac.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/libmpg123_mac.bundle",
+        "Frameworks/mcm.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/mcm.bundle",
+        "Frameworks/ssb_sdk.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/ssb_sdk.bundle",
+        "Frameworks/viperex.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/viperex.bundle",
+        "Frameworks/zData.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zData.bundle",
+        "Frameworks/zNet.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zNet.bundle",
+        "Frameworks/zPSApp.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zPSApp.bundle",
+        "Frameworks/zVideoApp.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zVideoApp.bundle",
+        "Frameworks/zVideoAppPlugin.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zVideoAppPlugin.bundle",
+        "Frameworks/zWebService.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zWebService.bundle",
+        "Frameworks/zlt.bundle": "../../zoom-video-sdk-macos-2.6.0/Sample-Libs/ZoomVideoSDK/zlt.bundle"
+      }
+    }
+  }
+}

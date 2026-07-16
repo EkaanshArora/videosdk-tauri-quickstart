@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "videosdk-tauri-quickstart",
+  "productName": "Zoom Video SDK Quickstart",
   "version": "0.1.0",
   "identifier": "com.ekaansh.videosdk-tauri-quickstart",
   "build": {
@@ -13,9 +13,11 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "videosdk-tauri-quickstart",
-        "width": 800,
-        "height": 600
+        "title": "Zoom Video SDK Quickstart",
+        "width": 1100,
+        "height": 760,
+        "minWidth": 800,
+        "minHeight": 600
       }
     ],
     "security": {

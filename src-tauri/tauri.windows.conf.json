@@ -1,0 +1,7 @@
+{
+  "bundle": {
+    "resources": {
+      "../../zoom-video-sdk-windows-2.6.0/Sample-Libs/x64/bin/*": ""
+    }
+  }
+}
