@@ -31,14 +31,14 @@ void notify() {
   if (event_callback) event_callback();
 }
 
-void fail(const std::string& message) {
-  last_error = message;
-  session_status = 3;
-  notify();
-}
-
 void remember_error(const std::string& message) {
   last_error = message;
+}
+
+void fail(const std::string& message) {
+  remember_error(message);
+  session_status = 3;
+  notify();
 }
 
 std::wstring wide(const char* text) {

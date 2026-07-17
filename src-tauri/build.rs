@@ -31,7 +31,7 @@ fn build_macos() {
     println!("cargo:rustc-link-lib=framework=AppKit");
     println!(
         "cargo:rustc-link-arg=-Wl,-rpath,{}",
-        absolute(sdk).display()
+        sdk.canonicalize().unwrap().display()
     );
 }
 
@@ -95,12 +95,4 @@ fn copy_windows_runtime(source: &Path) {
             fs::copy(&path, destination.join(path.file_name().unwrap())).unwrap();
         }
     }
-}
-
-fn absolute(path: &Path) -> PathBuf {
-    env::current_dir()
-        .unwrap()
-        .join(path)
-        .canonicalize()
-        .unwrap()
 }

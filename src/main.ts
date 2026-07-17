@@ -134,7 +134,11 @@ function renderGrid() {
 
       const label = document.createElement("div");
       label.className = "video-label";
-      label.innerHTML = `<span>${escapeHtml(user.name)}${user.isLocal ? " (You)" : ""}</span><span>${user.audioMuted ? "Muted" : ""}</span>`;
+      const name = document.createElement("span");
+      name.textContent = user.name + (user.isLocal ? " (You)" : "");
+      const status = document.createElement("span");
+      status.textContent = user.audioMuted ? "Muted" : "";
+      label.append(name, status);
       tile.append(surface, label);
       return tile;
     }),
@@ -143,7 +147,20 @@ function renderGrid() {
   const me = users.find((user) => user.isLocal);
   audioButton.textContent = me?.audioMuted ? "Unmute" : "Mute";
   videoButton.textContent = me?.videoOn ? "Stop video" : "Start video";
-  requestAnimationFrame(syncVideoViews);
+  scheduleSync();
+}
+
+let syncScheduled = false;
+
+// Resize, window move, and every render can all fire in one frame. Collapse
+// them into a single sync so getBoundingClientRect only runs once per frame.
+function scheduleSync() {
+  if (syncScheduled) return;
+  syncScheduled = true;
+  requestAnimationFrame(() => {
+    syncScheduled = false;
+    syncVideoViews();
+  });
 }
 
 async function syncVideoViews() {
@@ -172,6 +189,7 @@ function showJoinError(error: unknown) {
   errorMessage.textContent = String(error);
 }
 
+
 function showJoinScreen() {
   sessionScreen.hidden = true;
   joinScreen.hidden = false;
@@ -183,17 +201,11 @@ function initials(name: string) {
   return name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("");
 }
 
-function escapeHtml(value: string) {
-  const element = document.createElement("span");
-  element.textContent = value;
-  return element.innerHTML;
-}
-
-window.addEventListener("resize", () => requestAnimationFrame(syncVideoViews));
+window.addEventListener("resize", scheduleSync);
 
 async function start() {
   await listen("zoom-state-changed", refreshState);
-  await getCurrentWindow().onMoved(() => requestAnimationFrame(syncVideoViews));
+  await getCurrentWindow().onMoved(scheduleSync);
   try {
     await invoke("initialize_sdk");
     await refreshState();

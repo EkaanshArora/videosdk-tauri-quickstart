@@ -116,10 +116,10 @@ fn initialize_sdk(window: WebviewWindow) -> Result<(), String> {
 
 #[tauri::command]
 fn join_session(input: JoinInput) -> Result<(), String> {
-    let session_name = c_string(input.session_name)?;
-    let user_name = c_string(input.user_name)?;
-    let password = c_string(input.password)?;
-    let token = c_string(input.token)?;
+    let session_name = c_string(&input.session_name)?;
+    let user_name = c_string(&input.user_name)?;
+    let password = c_string(&input.password)?;
+    let token = c_string(&input.token)?;
     check(unsafe {
         zoom_join(
             session_name.as_ptr(),
@@ -132,7 +132,12 @@ fn join_session(input: JoinInput) -> Result<(), String> {
 
 #[tauri::command]
 fn get_session_state() -> SessionState {
-    let status = unsafe { zoom_status() };
+    let status = match unsafe { zoom_status() } {
+        1 => "joining",
+        2 => "joined",
+        3 => "error",
+        _ => "ready",
+    };
     let count = unsafe { zoom_get_participants(std::ptr::null_mut(), 0) };
     let mut native = vec![NativeParticipant::default(); count];
     if count > 0 {
@@ -140,12 +145,7 @@ fn get_session_state() -> SessionState {
     }
 
     SessionState {
-        status: match status {
-            1 => "joining",
-            2 => "joined",
-            3 => "error",
-            _ => "ready",
-        },
+        status,
         participants: native
             .into_iter()
             .map(|user| Participant {
@@ -156,7 +156,7 @@ fn get_session_state() -> SessionState {
                 video_on: user.video_on != 0,
             })
             .collect(),
-        error: (status == 3).then(last_error),
+        error: (status == "error").then(last_error),
     }
 }
 
@@ -164,7 +164,7 @@ fn get_session_state() -> SessionState {
 fn sync_video_views(views: Vec<VideoView>) -> Result<(), String> {
     let ids = views
         .iter()
-        .map(|view| c_string(view.user_id.clone()))
+        .map(|view| c_string(&view.user_id))
         .collect::<Result<Vec<_>, _>>()?;
     let native = views
         .iter()
@@ -215,11 +215,11 @@ fn last_error() -> String {
     }
 }
 
-fn c_string(value: String) -> Result<CString, String> {
+fn c_string(value: &str) -> Result<CString, String> {
     CString::new(value).map_err(|_| "Text fields cannot contain a null character".into())
 }
 
-fn chars_to_string<const N: usize>(value: &[c_char; N]) -> String {
+fn chars_to_string(value: &[c_char]) -> String {
     unsafe {
         CStr::from_ptr(value.as_ptr())
             .to_string_lossy()

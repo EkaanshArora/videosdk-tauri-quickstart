@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <cstring>
 #include <string>
-#include <vector>
 
 ZMVideoSDK* sdk = nil;
 NSView* parent_view = nil;
@@ -18,14 +17,14 @@ void notify() {
   if (event_callback) event_callback();
 }
 
-void fail(NSString* message) {
-  last_error = message ? message.UTF8String : "Zoom Video SDK error";
-  session_status = 3;
-  notify();
-}
-
 void remember_error(NSString* message) {
   last_error = message ? message.UTF8String : "Zoom Video SDK error";
+}
+
+void fail(NSString* message) {
+  remember_error(message);
+  session_status = 3;
+  notify();
 }
 
 void copy_text(char* output, size_t size, NSString* value) {
